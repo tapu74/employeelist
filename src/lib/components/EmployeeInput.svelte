@@ -19,9 +19,10 @@
 	};
 
 	const handleEmployeeCreation = async () => {
-		if (numberOfEmployee < 1 || !numberOfEmployee) {
-			errorMessage = 'Please input number of employees';
+		if (numberOfEmployee < 350 || !numberOfEmployee) {
+			errorMessage = 'Please input at least 350';
 		} else {
+			errorMessage=null;
 			bulkId = null;
 			disabled = true;
 			const fakeData = generateFakeData(numberOfEmployee);
