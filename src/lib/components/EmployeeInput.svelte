@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { postEmployeeBulk } from '$lib/API/Api';
-	import type { ImportEmployeesBulkResponse } from '$lib/Models/Employee';
+	import type { ImportEmployeesBulkResponse } from '$lib/Types/Employee';
 	import { bulkData } from '$lib/Store/employee-store';
 	import { generateFakeData } from '$lib/Util/fake-data';
 	import BulkStatus from './BulkStatus.svelte';

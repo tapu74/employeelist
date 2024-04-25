@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import type { EmployeeBulkImport } from '$lib/Models/Employee';
+import type { EmployeeBulkImport } from '$lib/Types/Employee';
 import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
 let token;

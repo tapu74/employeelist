@@ -1,4 +1,4 @@
-import type { Employee } from '../Models/Employee';
+import type { Employee } from '../Types/Employee';
 import { faker } from '@faker-js/faker';
 
 const allowedLanguages = [

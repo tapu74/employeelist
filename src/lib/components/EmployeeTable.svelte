@@ -4,7 +4,7 @@
 	import EmployeeList from './UI/EmployeeList.svelte';
 	import Button from '../components/UI/Button.svelte';
 	import { onMount, onDestroy } from 'svelte';
-	import type { EmployeesResponse } from '../Models/Employee';
+	import type { EmployeesResponse } from '../Types/Employee';
 	import { employeeStore } from '$lib/Store/employee-store';
 	import { get } from '$lib/API/Api';
 

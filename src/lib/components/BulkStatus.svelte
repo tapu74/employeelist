@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { get } from '$lib/API/Api';
-	import type { BulkResponse } from '$lib/Models/Employee';
+	import type { BulkResponse } from '$lib/Types/Employee';
 	import { bulkData } from '$lib/Store/employee-store';
 	import { onDestroy, onMount } from 'svelte';
 	export let bulkId: string;

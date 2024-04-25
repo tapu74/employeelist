@@ -1,5 +1,5 @@
 import { createRandomEmployee } from "$lib/API/FakeData";
-import type { EmployeeInput } from "$lib/Models/Employee";
+import type { EmployeeInput } from "$lib/Types/Employee";
 import { faker } from "@faker-js/faker";
 
 export const generateFakeData = (amount: number) => {

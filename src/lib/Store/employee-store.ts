@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { BulkOperationState, BulkResponse, Employee } from '../Models/Employee';
+import type { BulkOperationState, BulkResponse, Employee } from '../Types/Employee';
 
 
 const employeeData = writable<Employee[]>([]);
