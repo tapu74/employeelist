@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { get } from '$lib/API/Api';
 	import type { BulkResponse } from '$lib/Types/Employee';
-	import { bulkData } from '$lib/Store/employee-store';
+	import { bulkData, employeeStore } from '$lib/Store/employee-store';
 	import { onDestroy, onMount } from 'svelte';
 	export let bulkId: string;
 	let bulkResponse: BulkResponse | null = null;
@@ -27,6 +27,8 @@
 				status: bulk.status,
 				bulkOperationState: 'Finished'
 			});
+			// Reset the employee store to prevent users from seeing previously entered data when creating additional employees after the first submission.
+			employeeStore.setEmployees([]);
 			clearInterval(intervalId);
 		} else {
 			bulkData.set({

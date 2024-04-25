@@ -59,15 +59,15 @@
 		color: #fff;
 	}
 
-	button:hover {
+	.btn:hover {
 		border-color: white;
 	}
-	button:focus,
-	button:focus-visible {
+	.btn:focus,
+	.btn:focus-visible {
 		outline: 4px auto #21724b;
 	}
 
-	.disabled {
+	.btn[disabled] {
 		opacity: 0.5;
 		cursor: not-allowed;
 	}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte';
 	import { postEmployeeBulk } from '$lib/API/Api';
 	import type { ImportEmployeesBulkResponse } from '$lib/Types/Employee';
 	import { bulkData } from '$lib/Store/employee-store';
@@ -6,45 +7,61 @@
 	import BulkStatus from './BulkStatus.svelte';
 	import Button from './UI/Button.svelte';
 	import InputField from './UI/InputField.svelte';
+	import ErrorDisplay from './UI/ErrorDisplay.svelte';
 
-	let bulkId: string|null;
+	let bulkId: string | null;
 	let numberOfEmployee: number;
+	let errorMessage: null | string = null;
+	let disabled = false;
 
 	const handleInput = (event: CustomEvent) => {
 		numberOfEmployee = event.detail;
 	};
-	
 
 	const handleEmployeeCreation = async () => {
 		if (numberOfEmployee < 1 || !numberOfEmployee) {
-			//TODO: validation check
-			return;
-		}
-		bulkId=null;
-		const fakeData = generateFakeData(numberOfEmployee);
+			errorMessage = 'Please input number of employees';
+		} else {
+			bulkId = null;
+			disabled = true;
+			const fakeData = generateFakeData(numberOfEmployee);
 
-		try {
-			const response = await postEmployeeBulk<ImportEmployeesBulkResponse>(
-				'employees/bulk/import',
-				{ rows: fakeData }
-			);
-			if (response.id) {
-				bulkId = response.id;
-				bulkData.set(null);
+			try {
+				const response = await postEmployeeBulk<ImportEmployeesBulkResponse>(
+					'employees/bulk/import',
+					{ rows: fakeData }
+				);
+				if (response.id) {
+					bulkId = response.id;
+					bulkData.set(null);
+				}
+			} catch (e) {
+				errorMessage = e.message;
 			}
-		} catch (e) {
-			console.error(e);
 		}
 	};
+
+	const unsubscribe = bulkData.subscribe((data) => {
+		 if (data?.bulkOperationState === 'Finished') {
+			disabled = false;
+		}
+	});
+
+	onDestroy(() => {
+		unsubscribe();
+	});
 </script>
 
 <div class="employee-info">
 	<p>Anzahl der Mitarbeiter, die angelegt werden</p>
 	<div class="input-group">
 		<InputField placeholder="e.g. 350" on:input={handleInput} />
-		<Button onClick={handleEmployeeCreation} color="primary" size="lg">Mitarbeiter anlegen</Button>
+		<Button onClick={handleEmployeeCreation} color="primary" size="lg" {disabled}
+			>Mitarbeiter anlegen</Button
+		>
 	</div>
 </div>
+{#if errorMessage}<ErrorDisplay {errorMessage} />{/if}
 
 {#if bulkId}
 	<BulkStatus {bulkId} />

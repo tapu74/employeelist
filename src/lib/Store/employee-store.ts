@@ -10,7 +10,10 @@ export const employeeStore = {
         employeeData.update((oldEmployees: Employee[]) => {
             return [...employees, ...oldEmployees];
         })
-    }
+    },
+    setEmployees: (employees: Employee[]) => {
+        employeeData.set(employees)
+    },
 }
 
 export const bulkData = writable<Pick<BulkResponse, 'succeeded' | 'failed' | 'total' | 'id' | 'status'> & BulkOperationState | null>(null);
